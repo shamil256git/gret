@@ -121,3 +121,26 @@ class CurrencyConverterTest {
             converter.convert(fromCurrency, toCurrency, amount);
         });
 
+        String expectedMessage = "Currency codes cannot be null";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void testCustomRate() {
+        // Setup - Add a new exchange rate
+        String fromCurrency = "CAD";
+        String toCurrency = "USD";
+        double rate = 0.80;
+        double amount = 100.0;
+
+        exchangeService.addExchangeRate(fromCurrency, toCurrency, rate);
+
+        // Execute
+        double actualResult = converter.convert(fromCurrency, toCurrency, amount);
+
+        // Verify
+        double expectedResult = 80.0; // 100 CAD should be 80 USD with our custom rate
+        assertEquals(expectedResult, actualResult, 0.001);
+    }
+}
