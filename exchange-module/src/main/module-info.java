@@ -1,4 +1,3 @@
-
-module exchange.module {
-    exports exchange;
-}
+module exchange.module{
+        exports exchange;
+        }
